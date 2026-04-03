@@ -29,6 +29,16 @@ Temperature: 24.52 *C    Humidity: 45.15 %
 ...
 ```
 
+## 📥 Installation & Download
+
+### Download Files
+You can download the project using Git:
+```bash
+git clone https://github.com/adminmik7/aht10.git
+cd aht10
+```
+Or download the ZIP archive from the [Releases page](https://github.com/adminmik7/aht10/releases).
+
 ## 🖥️ PC Monitor (Linux)
 
 You can use `monitor.py` to read data on your Linux computer.
