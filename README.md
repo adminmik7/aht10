@@ -1,5 +1,7 @@
 # 🌡️ aht10 — ESP-12E + AHT10 Sensor
 
+**Latest Release:** [v1.4.0](https://github.com/adminmik7/aht10/releases/tag/v1.4.0) 🚀
+
 Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor. Data is output to the Serial Console.
 
 ## 🔌 Connection
