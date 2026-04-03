@@ -46,7 +46,14 @@ def main():
     
     try:
         with serial.Serial(port, BAUD, timeout=1) as ser:
-            time.sleep(2)  # wait for ESP reset
+            # Force ESP reset (DTR/RTS toggle like in Arduino IDE)
+            ser.setDTR(False) 
+            ser.setRTS(False)
+            time.sleep(0.5)
+            ser.setDTR(True) 
+            ser.setRTS(True)
+            time.sleep(2)  # Wait for boot
+            
             ser.reset_input_buffer()
             print(f"✅ Connected! Waiting for data (Ctrl+C to stop)...\n")
 
