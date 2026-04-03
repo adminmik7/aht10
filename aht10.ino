@@ -6,7 +6,7 @@ Adafruit_AHTX0 aht;
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) delay(10); 
+  while (!Serial) { delay(10); } // Wait for Serial port to open (fix for Linux console)
 
   Serial.println("AHT10 Sensor Start");
 
