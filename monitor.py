@@ -56,31 +56,35 @@ def main():
     
     try:
         with serial.Serial(port, baud, timeout=1) as ser:
-            # Force ESP reset (DTR/RTS toggle like in Arduino IDE)
-            ser.setDTR(False) 
-            ser.setRTS(False)
-            time.sleep(0.5)
-            ser.setDTR(True) 
+            # Aggressive ESP8266 Reset Sequence
+            ser.setDTR(False)
             ser.setRTS(True)
-            time.sleep(2)  # Wait for boot
+            time.sleep(0.1)
+            ser.setDTR(False)
+            ser.setRTS(False)
+            time.sleep(0.1)
+            ser.setDTR(True)
+            ser.setRTS(False)
+            time.sleep(2) # Wait for ESP to boot
             
             ser.reset_input_buffer()
             print(f"✅ Connected! Waiting for data (Ctrl+C to stop)...\n")
 
             while True:
-                if ser.in_waiting:
-                    try:
-                        line = ser.readline().decode("utf-8", errors="replace").strip()
-                        if line:
-                            # Simple formatting for console
-                            if "Temperature" in line:
-                                print(f"  🌡️  {line}")
-                            else:
-                                print(f"  📄  {line}")
-                    except Exception as e:
-                        print(f"Read error: {e}")
+                try:
+                    # Читаем всё, что есть, по байтам
+                    if ser.in_waiting > 0:
+                        data = ser.read(ser.in_waiting)
+                        text = data.decode("utf-8", errors="replace")
+                        
+                        # Выводим как есть, чтобы увидеть любую реакцию ESP
+                        sys.stdout.write(text)
+                        sys.stdout.flush()
+                except Exception as e:
+                    print(f"\nError: {e}")
+                    break
                 
-                time.sleep(0.1)
+                time.sleep(0.05)
 
     except serial.SerialException as e:
         print(f"Serial Error: {e}")
