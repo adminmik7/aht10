@@ -50,14 +50,15 @@ You can use `monitor.py` to read data on your Linux computer.
 2. **Run (Recommended):**
    ```bash
    chmod +x start.sh
-   ./start.sh              # auto-detect port
-   ./start.sh /dev/ttyUSB0 # specific port
+   ./start.sh                     # auto-detect port (115200 baud)
+   ./start.sh /dev/ttyUSB0        # specific port
+   ./start.sh /dev/ttyUSB0 74880  # custom baud rate
    ```
    > Скрипт `start.sh` сам проверит наличие Python3, установит `pyserial` и запустит монитор.
 
    **Or manually:**
    ```bash
-   python3 monitor.py
+   python3 monitor.py /dev/ttyUSB0 74880  # port and speed
    ```
 
 ## 📦 Files

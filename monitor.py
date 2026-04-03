@@ -7,7 +7,7 @@ import time
 import os
 import subprocess
 
-BAUD = 115200
+DEFAULT_BAUD = 115200
 
 # ─── Auto-install dependencies ───────────────────────────
 def _pip_install(package):
@@ -37,15 +37,25 @@ def find_port():
 
 # ─── Main ────────────────────────────────────────────────
 def main():
-    port = sys.argv[1] if len(sys.argv) > 1 else find_port()
+    # Parse arguments: port and optional baud rate
+    port_arg = None
+    baud = DEFAULT_BAUD
+    
+    for arg in sys.argv[1:]:
+        if arg.isdigit():
+            baud = int(arg)
+        else:
+            port_arg = arg
+            
+    port = port_arg if port_arg else find_port()
     if not port:
-        print("Error: No USB-Serial port found. Use: python3 monitor.py /dev/ttyUSB0")
+        print("Error: No USB-Serial port found. Use: python3 monitor.py /dev/ttyUSB0 [baud]")
         sys.exit(1)
 
-    print(f"Connecting to ESP-12E on {port} @ {BAUD} baud...")
+    print(f"Connecting to ESP-12E on {port} @ {baud} baud...")
     
     try:
-        with serial.Serial(port, BAUD, timeout=1) as ser:
+        with serial.Serial(port, baud, timeout=1) as ser:
             # Force ESP reset (DTR/RTS toggle like in Arduino IDE)
             ser.setDTR(False) 
             ser.setRTS(False)

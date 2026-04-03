@@ -58,7 +58,7 @@ echo "════════════════════════�
 echo ""
 
 if [ -n "$1" ]; then
-    python3 "$MONITOR" "$1"
+    python3 "$MONITOR" "$@"
 else
     python3 "$MONITOR"
 fi
