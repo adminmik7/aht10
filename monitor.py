@@ -10,12 +10,22 @@ import subprocess
 BAUD = 115200
 
 # ─── Auto-install dependencies ───────────────────────────
+def _pip_install(package):
+    print(f"[!] {package} not found, installing...")
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package, "--quiet"])
+        return True
+    except Exception as e:
+        print(f"[✗] Failed: {e}")
+        return False
+
 try:
     import serial
 except ImportError:
-    print("[!] pyserial not found, installing...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pyserial", "--quiet"])
+    if not _pip_install("pyserial"):
+        sys.exit(1)
     import serial
+    print("[✓] pyserial installed successfully")
 
 # ─── Port detection ──────────────────────────────────────
 def find_port():

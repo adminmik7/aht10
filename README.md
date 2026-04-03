@@ -47,10 +47,17 @@ You can use `monitor.py` to read data on your Linux computer.
    ```bash
    pip3 install pyserial
    ```
-2. **Run:**
+2. **Run (Recommended):**
    ```bash
-   python3 monitor.py              # auto-detect port
-   python3 monitor.py /dev/ttyUSB0 # specific port
+   chmod +x start.sh
+   ./start.sh              # auto-detect port
+   ./start.sh /dev/ttyUSB0 # specific port
+   ```
+   > Скрипт `start.sh` сам проверит наличие Python3, установит `pyserial` и запустит монитор.
+
+   **Or manually:**
+   ```bash
+   python3 monitor.py
    ```
 
 ## 📦 Files
