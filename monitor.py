@@ -7,7 +7,7 @@ import time
 import os
 import subprocess
 
-DEFAULT_BAUD = 115200
+DEFAULT_BAUD = 9600
 
 # ─── Auto-install dependencies ───────────────────────────
 def _pip_install(package):

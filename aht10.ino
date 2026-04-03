@@ -5,9 +5,8 @@
 Adafruit_AHTX0 aht;
 
 void setup() {
-  Serial.begin(115200);
-  Serial.setTxTimeoutMs(10); // Prevent hanging on write if port is closed
-  delay(500); // Give time for USB to settle
+  Serial.begin(9600); // Changed to 9600 for better stability (like nano1602)
+  delay(1000); // Wait for ESP to stabilize
   
   Serial.println("AHT10 Sensor Start");
 
