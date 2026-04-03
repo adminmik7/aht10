@@ -29,6 +29,21 @@ Temperature: 24.52 *C    Humidity: 45.15 %
 ...
 ```
 
+## 🖥️ PC Monitor (Linux)
+
+You can use `monitor.py` to read data on your Linux computer.
+
+1. **Install dependencies:**
+   ```bash
+   pip3 install pyserial
+   ```
+2. **Run:**
+   ```bash
+   python3 monitor.py              # auto-detect port
+   python3 monitor.py /dev/ttyUSB0 # specific port
+   ```
+
 ## 📦 Files
 
 - `aht10.ino` — Main firmware for ESP-12E.
+- `monitor.py` — Python script to read data on Linux.
