@@ -15,13 +15,22 @@ Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor
 
 > **Note:** AHT10 uses I2C communication. Make sure to use pull-up resistors if your module doesn't have them built-in (though most AHT10 breakout boards do).
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Wi-Fi & MQTT Mode)
 
 1. **Install Libraries:** In Arduino IDE, install:
    - `Adafruit AHTX0`
    - `Adafruit Sensor`
-2. **Upload:** Open `aht10.ino` and upload it to your ESP-12E.
-3. **Monitor:** Open the Serial Monitor (Baud Rate: 115200).
+   - `PubSubClient` (by Nick O'Leary)
+   - `ArduinoJson` (by Benoit Blanchon)
+
+2. **Configure:** Open `aht10.ino` and fill in your details:
+   ```cpp
+   const char* ssid = "YOUR_WIFI_NAME";
+   const char* password = "YOUR_WIFI_PASS";
+   const char* mqtt_server = "192.168.0.67"; // Your HA IP
+   ```
+
+3. **Upload & Enjoy:** Flash the code. Home Assistant will automatically discover the sensor via MQTT! 🏠
 
 ## 🖥️ Console Output
 
