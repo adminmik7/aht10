@@ -63,7 +63,24 @@ You can use `monitor.py` to read data on your Linux computer.
    python3 monitor.py /dev/ttyUSB0 74880  # port and speed
    ```
 
+## 🧠 How it Works
+
+1. **ESP-12E (NodeMCU)** continuously reads data from the AHT10 sensor via I2C.
+2. Data is formatted as a text string (e.g., `Temperature: 24.5 *C`) and sent via USB.
+3. **monitor.py** on your Linux PC detects the USB port, opens it, and displays the data in real-time.
+
+## ❓ Troubleshooting
+
+| Problem | Solution |
+|---|---|
+| **No data in console** | Ensure you uploaded the latest code to ESP. Try `./start.sh /dev/ttyUSB0 9600`. |
+| **"Port not found"** | Check connection: `ls /dev/ttyUSB*`. Try a different USB cable. |
+| **Garbage characters** | Wrong baud rate. Try 74880 or 115200 as an argument: `./start.sh /dev/ttyUSB0 74880`. |
+| **Permission denied** | Add your user to the dialout group: `sudo usermod -a -G dialout $USER`. |
+
 ## 📦 Files
 
 - `aht10.ino` — Main firmware for ESP-12E.
 - `monitor.py` — Python script to read data on Linux.
+- `start.sh` — All-in-one setup and launch script.
+- `CHANGELOG.md` — Full history of project updates.
