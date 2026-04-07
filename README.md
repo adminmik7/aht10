@@ -6,14 +6,16 @@ Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor
 
 ## 🔌 Connection
 
-| ESP-12E (NodeMCU) | AHT10 |
-|---|---|
-| 3V3 | VCC |
-| GND | GND |
-| D2 (GPIO4) | SDA |
-| D1 (GPIO5) | SCL |
+Both the **AHT10** sensor and the **LCD 2004** (with I2C module) share the same I2C pins.
 
-> **Note:** AHT10 uses I2C communication. Make sure to use pull-up resistors if your module doesn't have them built-in (though most AHT10 breakout boards do).
+| ESP-12E (NodeMCU) | AHT10 | LCD 2004 (I2C) |
+|---|---|---|
+| 3V3 | VCC | VCC |
+| GND | GND | GND |
+| D2 (GPIO4) | SDA | SDA |
+| D1 (GPIO5) | SCL | SCL |
+
+> **Note:** Ensure your LCD module has an I2C adapter (usually a small blue board on the back). If the screen remains blank, check the I2C address in `aht10.ino` (`0x27` or `0x3F`).
 
 ## 🚀 Quick Start
 
