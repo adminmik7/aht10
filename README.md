@@ -1,8 +1,8 @@
-# 🌡️ aht10 — ESP-12E + AHT10 Sensor
+# 🌡️ aht10 - ESP-12E + AHT10 Sensor
 
-**Latest Release:** [v1.4.0](https://github.com/adminmik7/aht10/releases/tag/v1.4.0) 🚀
+**Latest Release:** [v1.5.0](https://github.com/adminmik7/aht10/releases/tag/v1.5.0) 🚀
 
-Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor. Data is output to the Serial Console.
+Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor. Data is output to the Serial Console and optionally displayed on an **LCD 2004 (I2C)** screen.
 
 ## 🔌 Connection
 
@@ -18,18 +18,31 @@ Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor
 ## 🚀 Quick Start
 
 1. **Install Libraries:** In Arduino IDE, install:
-   - `Adafruit AHTX0`
-   - `Adafruit Sensor`
+- `Adafruit AHTX0`
+     - `Adafruit Sensor`
+- `LiquidCrystal_I2C` by Frank de Brabander
 2. **Upload:** Open `aht10.ino` and upload it to your ESP-12E.
-3. **Monitor:** Open the Serial Monitor (Baud Rate: 115200).
+3. **Monitor:** Open the Serial Monitor (Baud Rate: 9600).
 
-## 🖥️ Console Output
+## 🖥️ Output
 
+### Serial Console
 ```
-Temperature: 24.50 *C    Humidity: 45.20 %
-Temperature: 24.52 *C    Humidity: 45.15 %
+Temperature: 24.50 *C    Humidity: 45.20 % 
 ...
 ```
+
+### LCD 2004 (I2C)
+If you connect an I2C LCD 2004 display (address `0x27`), the device will show:
+
+| Line | Content |
+|---|---|
+| 1 | `AHT10 Monitor` |
+| 2 | `Temp: 24.5 C` |
+| 3 | `Humidity: 45.2 %` |
+| 4 | (Empty) |
+
+> **Note:** If the screen stays black, try changing the I2C address in `aht10.ino` from `0x27` to `0x3F`.
 
 ## 📥 Installation & Download
 
@@ -80,7 +93,7 @@ You can use `monitor.py` to read data on your Linux computer.
 
 ## 📦 Files
 
-- `aht10.ino` — Main firmware for ESP-12E.
-- `monitor.py` — Python script to read data on Linux.
-- `start.sh` — All-in-one setup and launch script.
-- `CHANGELOG.md` — Full history of project updates.
+- `aht10.ino` - Main firmware for ESP-12E.
+- `monitor.py` - Python script to read data on Linux.
+- `start.sh` - All-in-one setup and launch script.
+- `CHANGELOG.md` - Full history of project updates.

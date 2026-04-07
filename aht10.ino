@@ -4,19 +4,27 @@
 #include <LiquidCrystal_I2C.h>
 
 Adafruit_AHTX0 aht;
-// Инициализация LCD 2004 (20 символов, 4 строки) по адресу 0x27
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 20, 4); // LCD 2004, address 0x27
+
+// Project Version
+#define VERSION "1.5.0"
 
 void setup() {
   Serial.begin(9600);
   delay(1000);
   
-  // Инициализация LCD
+  Serial.print("AHT10 Monitor v");
+  Serial.println(VERSION);
+
+  // LCD Initialization
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print("AHT10 Monitor");
   lcd.setCursor(0, 1);
+  lcd.print("Ver: ");
+  lcd.print(VERSION);
+  lcd.setCursor(0, 2);
   lcd.print("Starting...");
 
   if (!aht.begin()) {
