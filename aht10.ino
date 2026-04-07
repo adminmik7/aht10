@@ -9,12 +9,39 @@ LiquidCrystal_I2C lcd(0x27, 20, 4); // LCD 2004, address 0x27
 // Project Version
 #define VERSION "1.5.0"
 
+// Custom LCD Icons
+byte tempIcon[8] = {
+  B00100,
+  B01010,
+  B01010,
+  B01010,
+  B01010,
+  B10001,
+  B10001,
+  B01110
+};
+
+byte dropIcon[8] = {
+  B00100,
+  B00100,
+  B01010,
+  B01010,
+  B10001,
+  B10001,
+  B10001,
+  B01110
+};
+
 void setup() {
   Serial.begin(9600);
   delay(1000);
   
   Serial.print("AHT10 Monitor v");
   Serial.println(VERSION);
+
+  // Register custom characters
+  lcd.createChar(0, tempIcon);
+  lcd.createChar(1, dropIcon);
 
   // LCD Initialization
   lcd.init();
@@ -52,18 +79,19 @@ void loop() {
   Serial.print(humidity.relative_humidity);
   Serial.println(" %");
 
-  // Вывод на LCD 2004
+  // Вывод на LCD 2004 с иконками
   lcd.setCursor(0, 1);
-  lcd.print("Temp: ");
+  lcd.write(byte(0)); // Иконка термометра
+  lcd.print(" Temp: ");
   lcd.print(temp.temperature, 1);
-  lcd.print(" C");
-  lcd.print("                "); // очистка остатков строки
+  lcd.write(B11011111); // Символ градуса °
+  lcd.print("C   ");
 
   lcd.setCursor(0, 2);
-  lcd.print("Humidity: ");
+  lcd.write(byte(1)); // Иконка капли
+  lcd.print(" Hum: ");
   lcd.print(humidity.relative_humidity, 1);
-  lcd.print(" %");
-  lcd.print("               "); // очистка остатков строки
+  lcd.print("%    ");
 
   delay(2000);
 }
