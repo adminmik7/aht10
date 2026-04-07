@@ -1,12 +1,12 @@
-# 🌡️ aht10 - ESP-12E + AHT10 Sensor
+# 🌡️ aht10 — Мониторинг температуры и влажности
 
-**Latest Release:** [v1.5.0](https://github.com/adminmik7/aht10/releases/tag/v1.5.0) 🚀
+**Последний релиз:** [v1.5.0](https://github.com/adminmik7/aht10/releases/tag/v1.5.0) 🚀
 
-Simple temperature and humidity monitor using ESP-12E (NodeMCU) and AHT10 sensor. Data is output to the Serial Console and optionally displayed on an **LCD 2004 (I2C)** screen.
+Простой монитор температуры и влажности на базе ESP-12E (NodeMCU) и датчика AHT10. Данные выводятся в консоль (Serial) и опционально отображаются на **LCD 2004 (I2C)** дисплее.
 
-## 🔌 Connection
+## 🔌 Подключение
 
-Both the **AHT10** sensor and the **LCD 2004** (with I2C module) share the same I2C pins.
+Датчик **AHT10** и модуль **LCD 2004** (с I2C-адаптером) подключаются к одним и тем же пинам I2C.
 
 | ESP-12E (NodeMCU) | AHT10 | LCD 2004 (I2C) |
 |---|---|---|
@@ -15,87 +15,79 @@ Both the **AHT10** sensor and the **LCD 2004** (with I2C module) share the same 
 | D2 (GPIO4) | SDA | SDA |
 | D1 (GPIO5) | SCL | SCL |
 
-> **Note:** Ensure your LCD module has an I2C adapter (usually a small blue board on the back). If the screen remains blank, check the I2C address in `aht10.ino` (`0x27` or `0x3F`).
+> **Важно:** Убедитесь, что у вашего LCD есть I2C-адаптер (обычно это маленькая синяя плата сзади). Если экран не светится, проверьте I2C-адрес в `aht10.ino` (`0x27` или `0x3F`).
 
-## 🚀 Quick Start
+## 🚀 Быстрый старт
 
-1. **Install Libraries:** In Arduino IDE, install:
-- `Adafruit AHTX0`
-     - `Adafruit Sensor`
-- `LiquidCrystal_I2C` by Frank de Brabander
-2. **Upload:** Open `aht10.ino` and upload it to your ESP-12E.
-3. **Monitor:** Open the Serial Monitor (Baud Rate: 9600).
+1. **Установите библиотеки** в Arduino IDE:
+   - `Adafruit AHTX0`
+   - `Adafruit Sensor`
+   - `LiquidCrystal_I2C` (автор: Frank de Brabander)
+2. **Загрузите прошивку:** Откройте `aht10.ino` и загрузите её в ESP-12E.
+3. **Мониторинг:** Откройте монитор порта (Скорость: **9600**).
 
-## 🖥️ Output
+## 🖥️ Вывод данных
 
-### Serial Console
+### Консоль (Serial)
 ```
-Temperature: 24.50 *C    Humidity: 45.20 % 
+Temperature: 24.50 *C    Humidity: 45.20 %
 ...
 ```
 
 ### LCD 2004 (I2C)
-If you connect an I2C LCD 2004 display (address `0x27`), the device will show:
+При подключении экрана устройство будет показывать:
 
-| Line | Content |
+| Строка | Содержание |
 |---|---|
 | 1 | `AHT10 Monitor` |
 | 2 | `Temp: 24.5 C` |
 | 3 | `Humidity: 45.2 %` |
-| 4 | (Empty) |
+| 4 | (Пусто) |
 
-> **Note:** If the screen stays black, try changing the I2C address in `aht10.ino` from `0x27` to `0x3F`.
+## 📥 Установка и скачивание
 
-## 📥 Installation & Download
-
-### Download Files
-You can download the project using Git:
+Вы можете скачать проект через Git:
 ```bash
 git clone https://github.com/adminmik7/aht10.git
 cd aht10
 ```
-Or download the ZIP archive from the [Releases page](https://github.com/adminmik7/aht10/releases).
+Или скачайте ZIP-архив со страницы [Releases](https://github.com/adminmik7/aht10/releases).
 
-## 🖥️ PC Monitor (Linux)
+## 🖥️ Монитор для ПК (Linux)
 
-You can use `monitor.py` to read data on your Linux computer.
+Используйте `monitor.py` для чтения данных на компьютере.
 
-1. **Install dependencies:**
+1. **Установите зависимости:**
    ```bash
    pip3 install pyserial
    ```
-2. **Run (Recommended):**
+2. **Запуск (Рекомендуется):**
    ```bash
    chmod +x start.sh
-   ./start.sh                     # auto-detect port (115200 baud)
-   ./start.sh /dev/ttyUSB0        # specific port
-   ./start.sh /dev/ttyUSB0 74880  # custom baud rate
+   ./start.sh                     # авто-поиск порта (9600 baud)
+   ./start.sh /dev/ttyUSB0        # конкретный порт
+   ./start.sh /dev/ttyUSB0 9600   # порт и скорость
    ```
    > Скрипт `start.sh` сам проверит наличие Python3, установит `pyserial` и запустит монитор.
 
-   **Or manually:**
-   ```bash
-   python3 monitor.py /dev/ttyUSB0 74880  # port and speed
-   ```
+## 🧠 Как это работает
 
-## 🧠 How it Works
+1. **ESP-12E (NodeMCU)** считывает данные с датчика AHT10 по шине I2C.
+2. Данные форматируются в текстовую строку и отправляются через USB в Serial-порт.
+3. Скрипт **monitor.py** на ПК находит порт и выводит данные в реальном времени.
 
-1. **ESP-12E (NodeMCU)** continuously reads data from the AHT10 sensor via I2C.
-2. Data is formatted as a text string (e.g., `Temperature: 24.5 *C`) and sent via USB.
-3. **monitor.py** on your Linux PC detects the USB port, opens it, and displays the data in real-time.
+## ❓ Решение проблем
 
-## ❓ Troubleshooting
-
-| Problem | Solution |
+| Проблема | Решение |
 |---|---|
-| **No data in console** | Ensure you uploaded the latest code to ESP. Try `./start.sh /dev/ttyUSB0 9600`. |
-| **"Port not found"** | Check connection: `ls /dev/ttyUSB*`. Try a different USB cable. |
-| **Garbage characters** | Wrong baud rate. Try 74880 or 115200 as an argument: `./start.sh /dev/ttyUSB0 74880`. |
-| **Permission denied** | Add your user to the dialout group: `sudo usermod -a -G dialout $USER`. |
+| **Нет данных в консоли** | Убедитесь, что прошивка загружена. Попробуйте `./start.sh /dev/ttyUSB0 9600`. |
+| **"Port not found"** | Проверьте подключение: `ls /dev/ttyUSB*`. Попробуйте другой USB-кабель. |
+| **"Кракозябры" в консоли** | Неверная скорость. Попробуйте 9600: `./start.sh /dev/ttyUSB0 9600`. |
+| **Permission denied** | Добавьте пользователя в группу dialout: `sudo usermod -a -G dialout $USER`. |
 
-## 📦 Files
+## 📦 Файлы проекта
 
-- `aht10.ino` - Main firmware for ESP-12E.
-- `monitor.py` - Python script to read data on Linux.
-- `start.sh` - All-in-one setup and launch script.
-- `CHANGELOG.md` - Full history of project updates.
+- `aht10.ino` — Основная прошивка для ESP-12E.
+- `monitor.py` — Python-скрипт для чтения данных на Linux.
+- `start.sh` — Скрипт для автоматической настройки и запуска.
+- `CHANGELOG.md` — История обновлений проекта.
